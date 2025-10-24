@@ -144,7 +144,9 @@ fetch('data.csv')
             for (const key of Object.keys(COLORS)) {
                 const label = LABELS[key] || key;
                 const color = COLORS[key];
-                inner += `<div class="d-flex align-items-center mb-1"><span class="legend-swatch" style="background:${color}"></span><span>${label}</span></div>`;
+                const sum = csvData.filter(entry => normalizeKey(entry.word) === key).length;
+                const precentage = ((sum / csvData.length) * 100).toFixed(1);
+                inner += `<div class="d-flex align-items-center mb-1"><span class="legend-swatch" style="background:${color}"></span><span>${label} - ${sum} hlasů (${precentage}%)</span></div>`;
             }
             inner += '</div></div>';
             inner += '<a class="btn btn-outline-primary" href="https://docs.google.com/forms/d/e/1FAIpQLSdQa9-3ygqWKbs_nBXb0UjPG2cN0GW_7Eo0APm6pfpSIjjx2g/viewform?usp=dialog">Vyplnit dotazník</a>'
